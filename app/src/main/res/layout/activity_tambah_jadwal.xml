@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/jadwal_bg_screen"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tambahkan Jadwal Baru"
+        android:textColor="@color/jadwal_btn_bg"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="32dp"/>
+
+    <EditText
+        android:id="@+id/et_hari_tanggal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Hari/Tanggal"
+        android:background="@drawable/bg_input_rounded"
+        android:paddingHorizontal="24dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"
+        android:focusable="false"
+        android:clickable="true"
+        android:inputType="none"/>
+
+    <EditText
+        android:id="@+id/et_mata_kuliah"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Mata Kuliah"
+        android:background="@drawable/bg_input_rounded"
+        android:paddingHorizontal="24dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:inputType="textCapWords"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/et_ruang_kelas"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Ruang Kelas"
+        android:background="@drawable/bg_input_rounded"
+        android:paddingHorizontal="24dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:inputType="textCapCharacters"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/et_waktu_perkuliahan"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Waktu Perkuliahan"
+        android:background="@drawable/bg_input_rounded"
+        android:paddingHorizontal="24dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp"
+        android:inputType="datetime"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_simpan_jadwal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Simpan Jadwal"
+        android:background="@drawable/bg_button_rounded"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:layout_marginBottom="24dp"/>
+
+</LinearLayout>
