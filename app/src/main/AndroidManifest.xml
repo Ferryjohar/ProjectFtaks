@@ -16,13 +16,10 @@
             android:name=".DetailBeritaActivity"
             android:exported="false" />
         <activity
-            android:name=".TambahTugasActivity"
+            android:name=".TambahJadwalActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
-        <activity
-            android:name=".TambahJadwalActivity"
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
