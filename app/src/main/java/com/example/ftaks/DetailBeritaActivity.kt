@@ -13,10 +13,7 @@ class DetailBeritaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_detail_berita)
-        // 1. Ambil Data dari Intent
         val berita = intent.getParcelableExtra<Berita>("DATA_BERITA")
-
-        // 2. Hubungkan View
         val ivGambar: ImageView = findViewById(R.id.iv_detail_gambar)
         val tvJudul: TextView = findViewById(R.id.tv_detail_judul)
         val tvTanggal: TextView = findViewById(R.id.tv_detail_tanggal)
