@@ -1,6 +1,8 @@
 package com.example.ftaks
 
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,10 +13,18 @@ class DetailBeritaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_detail_berita)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        val berita = intent.getParcelableExtra<Berita>("DATA_BERITA")
+        val ivGambar: ImageView = findViewById(R.id.iv_detail_gambar)
+        val tvJudul: TextView = findViewById(R.id.tv_detail_judul)
+        val tvTanggal: TextView = findViewById(R.id.tv_detail_tanggal)
+        val tvIsi: TextView = findViewById(R.id.tv_detail_isi)
+
+        // 3. Tampilkan Data
+        if (berita != null) {
+            ivGambar.setImageResource(berita.gambar)
+            tvJudul.text = berita.judul
+            tvTanggal.text = berita.tanggal
+            tvIsi.text = berita.isiLengkap
         }
     }
 }
