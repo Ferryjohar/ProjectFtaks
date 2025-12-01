@@ -14,11 +14,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_gravity="center_horizontal"
         android:text="Tambahkan Jadwal Baru"
         android:textColor="@color/home_text_primary"
         android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="32dp"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/et_hari_tanggal"
@@ -60,7 +61,7 @@
         android:id="@+id/et_waktu_perkuliahan"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:hint="Waktu Perkuliahan (cth: 08:00 - 10:30)"
+        android:hint="Waktu Perkuliahan (cth: 08:00 - 19:30)"
         android:background="@drawable/bg_jadwal_input"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
@@ -78,10 +79,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Simpan Jadwal"
-        android:background="@drawable/bg_button_dark"
+        android:background="@drawable/bg_button"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        android:gravity="center"
+        android:textAlignment="center"/>
 
 </LinearLayout>
