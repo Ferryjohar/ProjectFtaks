@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
-    app:cardElevation="2dp"
+    app:cardElevation="0dp"
     app:cardBackgroundColor="@android:color/white"
     android:layout_marginBottom="12dp">
 
@@ -14,93 +14,56 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/layout_actions"
-            android:paddingEnd="8dp">
-
-            <TextView
-                android:id="@+id/tv_matakuliah"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tugas Matakuliah"
-                android:textColor="@color/home_text_primary"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_deskripsi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Deskripsi Tugas"
-                android:textColor="@color/home_text_primary"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="12dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/tv_tanggal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tanggal"
-                    android:textColor="@color/home_text_secondary"
-                    android:textSize="12sp"
-                    android:layout_marginEnd="8dp"/>
-
-                <TextView
-                    android:id="@+id/tv_prioritas_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tinggi"
-                    android:textColor="@android:color/white"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="2dp"
-                    android:background="@drawable/bg_tag_tinggi"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_actions"
+        <TextView
+            android:id="@+id/tv_matakuliah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:text="Tugas Matakuliah Manajemen"
+            android:textColor="@color/home_text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_deskripsi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="membuat SCRUM"
+            android:textColor="@color/home_text_primary"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_matakuliah" />
+
+        <TextView
+            android:id="@+id/tv_tanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kamis, 12 Juni 2025"
+            android:textColor="@color/home_text_secondary"
+            android:textSize="12sp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_deskripsi"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_prioritas_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tinggi"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="@drawable/bg_tag_tinggi"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <ImageView
-                android:id="@+id/btn_selesai"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_check"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="6dp"
-                android:layout_marginEnd="8dp"
-                app:tint="#43A047"/>
-
-            <ImageView
-                android:id="@+id/btn_hapus"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_delete"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="6dp"
-                app:tint="#E53935"/>
-
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="@id/tv_tanggal"
+            app:layout_constraintBottom_toBottomOf="@id/tv_tanggal"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

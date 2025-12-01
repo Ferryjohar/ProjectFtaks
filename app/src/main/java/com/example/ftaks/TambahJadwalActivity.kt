@@ -1,73 +1,48 @@
 package com.example.ftaks
 
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 class TambahJadwalActivity : AppCompatActivity() {
-
-    private val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tambah_jadwal)
 
-        val etHariTanggal = findViewById<EditText>(R.id.et_hari_tanggal)
-        val etMataKuliah = findViewById<EditText>(R.id.et_mata_kuliah)
-        val etRuangKelas = findViewById<EditText>(R.id.et_ruang_kelas)
-        val etWaktu = findViewById<EditText>(R.id.et_waktu_perkuliahan)
-        val btnSimpan = findViewById<Button>(R.id.btn_simpan_jadwal)
+        val etHariTanggal: EditText = findViewById(R.id.et_hari_tanggal)
+        val etMataKuliah: EditText = findViewById(R.id.et_mata_kuliah)
+        val etRuangKelas: EditText = findViewById(R.id.et_ruang_kelas)
+        val etWaktu: EditText = findViewById(R.id.et_waktu_perkuliahan)
+        val btnSimpan: Button = findViewById(R.id.btn_simpan_jadwal)
 
-        // 1. Event Klik untuk Kalender
-        etHariTanggal.setOnClickListener {
-            showDatePicker(etHariTanggal)
-        }
-
-        // 2. Event Klik Simpan
         btnSimpan.setOnClickListener {
             val hari = etHariTanggal.text.toString()
             val matkul = etMataKuliah.text.toString()
             val ruang = etRuangKelas.text.toString()
             val waktu = etWaktu.text.toString()
 
+            // Validasi sederhana: pastikan tidak ada yang kosong
             if (hari.isEmpty() || matkul.isEmpty() || ruang.isEmpty() || waktu.isEmpty()) {
-                Toast.makeText(this, "Mohon lengkapi semua data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Semua data harus diisi", Toast.LENGTH_SHORT).show()
             } else {
+                // Buat objek Jadwal baru
                 val jadwalBaru = Jadwal(hari, matkul, ruang, waktu)
 
+                // Siapkan Intent untuk mengirim data kembali
                 val resultIntent = Intent()
                 resultIntent.putExtra("JADWAL_BARU", jadwalBaru)
+
+                // Set hasilnya OK dan kirim datanya
                 setResult(Activity.RESULT_OK, resultIntent)
+
+                // Tutup activity ini
                 finish()
             }
         }
-    }
-
-    private fun showDatePicker(editText: EditText) {
-        val datePickerDialog = DatePickerDialog(
-            this,
-            { _, year, month, dayOfMonth ->
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, month)
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                // Format: Senin, 15 Desember 2025
-                val formatTanggal = "EEEE, dd MMMM yyyy"
-                val sdf = SimpleDateFormat(formatTanggal, Locale("id", "ID"))
-                editText.setText(sdf.format(calendar.time))
-            },
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        )
-        datePickerDialog.show()
     }
 }
