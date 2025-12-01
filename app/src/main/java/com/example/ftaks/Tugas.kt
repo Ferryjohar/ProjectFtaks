@@ -1,16 +1,19 @@
 package com.example.ftaks
 
-// Enum untuk mempermudah pengelolaan prioritas
-enum class Prioritas {
-    TINGGI,
-    SEDANG,
-    RENDAH
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+enum class Prioritas : Parcelable {
+    TINGGI, SEDANG, RENDAH
 }
 
-// Data class untuk menyimpan semua info dari satu tugas
+@Parcelize
 data class Tugas(
     val matakuliah: String,
     val deskripsi: String,
     val tanggal: String,
-    val prioritas: Prioritas
-)
+    val prioritas: Prioritas,
+    var isSelesai: Boolean = false, // Penanda status
+    var waktuSelesai: Long = 0 // Menyimpan waktu (timestamp) saat selesai
+) : Parcelable

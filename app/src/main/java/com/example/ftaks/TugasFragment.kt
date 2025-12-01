@@ -1,59 +1,134 @@
 package com.example.ftaks
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TugasFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TugasFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var adapterAktif: TugasAdapter
+    private lateinit var adapterSelesai: TugasAdapter
+
+    private val listTugasAktif: ArrayList<Tugas> = ArrayList()
+    private val listTugasSelesai: ArrayList<Tugas> = ArrayList()
+
+    private lateinit var tvLabelTugasAktif: TextView
+    private lateinit var tvLabelSelesai: TextView
+
+    private val tambahTugasLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val tugasBaru = result.data?.getParcelableExtra<Tugas>("TUGAS_BARU")
+            if (tugasBaru != null) {
+                listTugasAktif.add(0, tugasBaru)
+                adapterAktif.notifyItemInserted(0)
+                updateLabels()
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_tugas, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TugasFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TugasFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val rvTugasAktif: RecyclerView = view.findViewById(R.id.rv_tugas_aktif)
+        val rvTugasSelesai: RecyclerView = view.findViewById(R.id.rv_tugas_selesai)
+        tvLabelTugasAktif = view.findViewById(R.id.tv_label_tugas_aktif)
+        tvLabelSelesai = view.findViewById(R.id.tv_label_selesai)
+        val btnTambah: Button = view.findViewById(R.id.btn_tambah_tugas)
+
+        // Data Dummy (Hanya muncul jika list kosong)
+        if (listTugasAktif.isEmpty() && listTugasSelesai.isEmpty()) {
+            listTugasAktif.addAll(buatDataTugasAktif())
+        }
+
+        // CATATAN: Kode "bersihkanTugasLama()" SUDAH DIHAPUS DI SINI.
+        // Jadi tugas selesai akan tetap ada selamanya.
+
+        // 1. ADAPTER TUGAS AKTIF
+        adapterAktif = TugasAdapter(
+            requireContext(),
+            listTugasAktif,
+            onDeleteClick = { pos -> konfirmasiHapus(listTugasAktif, adapterAktif, pos) },
+            onDoneClick = { pos -> pindahkanKeSelesai(pos) }
+        )
+        rvTugasAktif.layoutManager = LinearLayoutManager(requireContext())
+        rvTugasAktif.adapter = adapterAktif
+
+        // 2. ADAPTER TUGAS SELESAI
+        adapterSelesai = TugasAdapter(
+            requireContext(),
+            listTugasSelesai,
+            onDeleteClick = { pos -> konfirmasiHapus(listTugasSelesai, adapterSelesai, pos) },
+            onDoneClick = { } // Tidak melakukan apa-apa (sudah selesai)
+        )
+        rvTugasSelesai.layoutManager = LinearLayoutManager(requireContext())
+        rvTugasSelesai.adapter = adapterSelesai
+
+        updateLabels()
+
+        btnTambah.setOnClickListener {
+            val intent = Intent(requireContext(), TambahTugasActivity::class.java)
+            tambahTugasLauncher.launch(intent)
+        }
+    }
+
+    private fun pindahkanKeSelesai(position: Int) {
+        val tugas = listTugasAktif[position]
+
+        tugas.isSelesai = true
+        // Kita tidak perlu mencatat waktuSelesai lagi karena tidak ada penghapusan otomatis
+
+        listTugasAktif.removeAt(position)
+        listTugasSelesai.add(0, tugas) // Masuk ke paling atas list selesai
+
+        adapterAktif.notifyItemRemoved(position)
+        adapterAktif.notifyItemRangeChanged(position, listTugasAktif.size)
+
+        adapterSelesai.notifyItemInserted(0)
+
+        updateLabels()
+        Toast.makeText(requireContext(), "Tugas Selesai!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun konfirmasiHapus(list: ArrayList<Tugas>, adapter: TugasAdapter, position: Int) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Hapus Tugas")
+            .setMessage("Yakin ingin menghapus tugas ini?")
+            .setPositiveButton("Hapus") { _, _ ->
+                list.removeAt(position)
+                adapter.notifyItemRemoved(position)
+                adapter.notifyItemRangeChanged(position, list.size)
+                updateLabels()
             }
+            .setNegativeButton("Batal", null)
+            .show()
+    }
+
+    private fun updateLabels() {
+        tvLabelTugasAktif.text = "Tugas Aktif (${listTugasAktif.size})"
+        tvLabelSelesai.text = "Selesai (${listTugasSelesai.size})"
+    }
+
+    private fun buatDataTugasAktif(): List<Tugas> {
+        return listOf(
+            Tugas("Tugas Matakuliah Manajemen", "membuat SCRUM", "Kamis, 12 Juni", Prioritas.TINGGI),
+            Tugas("Tugas UI/UX", "Desain Prototype", "Jumat, 13 Juni", Prioritas.SEDANG)
+        )
     }
 }
