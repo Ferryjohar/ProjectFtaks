@@ -13,9 +13,12 @@
         android:theme="@style/Theme.Ftaks"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".DetailBeritaActivity"
             android:exported="false" />
         <activity
+=======
+>>>>>>> c1201fc3aa823d6a5379cae1059ab0a8232db450
             android:name=".TambahJadwalActivity"
             android:exported="false" />
         <activity
