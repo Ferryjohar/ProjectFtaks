@@ -17,7 +17,7 @@
             android:exported="false" />
         <activity
             android:name=".DetailBeritaActivity"
-            android:exported="false" /> <!-- VERSI 2: Jika butuh TambahJadwalActivity -->
+            android:exported="false" />
         <activity
             android:name=".TambahJadwalActivity"
             android:exported="false" />

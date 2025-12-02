@@ -12,10 +12,6 @@ import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity() {
 
-    val fragmentTugas = TugasFragment()
-    val fragmentJadwal = JadwalFragment()
-    val fragmentBerita = BeritaFragment()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,21 +30,21 @@ class MainActivity : AppCompatActivity() {
         val tabJadwal: TextView = findViewById(R.id.tab_jadwal)
         val tabBerita: TextView = findViewById(R.id.tab_berita)
 
-        gantiFragment(fragmentTugas)
+        gantiFragment(TugasFragment())
         aturWarnaTab(tabTugas, tabJadwal, tabBerita)
 
         tabTugas.setOnClickListener {
-            gantiFragment(fragmentTugas)
+            gantiFragment(TugasFragment())
             aturWarnaTab(tabTugas, tabJadwal, tabBerita)
         }
 
         tabJadwal.setOnClickListener {
-            gantiFragment(fragmentJadwal)
+            gantiFragment(JadwalFragment())
             aturWarnaTab(tabJadwal, tabTugas, tabBerita)
         }
 
         tabBerita.setOnClickListener {
-            gantiFragment(fragmentBerita)
+            gantiFragment(BeritaFragment())
             aturWarnaTab(tabBerita, tabTugas, tabJadwal)
         }
     }
@@ -56,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     fun gantiFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_container, fragment)
-            commit()
+            commitAllowingStateLoss()
         }
     }
 

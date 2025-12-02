@@ -72,8 +72,14 @@ class TugasFragment : Fragment() {
         updateLabels()
 
         btnTambah.setOnClickListener {
-            val intent = Intent(requireContext(), TambahTugasActivity::class.java)
-            tambahTugasLauncher.launch(intent)
+            context?.let { ctx ->
+                val intent = Intent(ctx, TambahTugasActivity::class.java)
+                try {
+                    tambahTugasLauncher.launch(intent)
+                } catch (e: Exception) {
+                    Toast.makeText(ctx, "Gagal membuka halaman: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

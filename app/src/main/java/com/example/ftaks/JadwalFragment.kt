@@ -58,8 +58,15 @@ class JadwalFragment : Fragment() {
         rvJadwal.adapter = adapter
 
         btnTambah.setOnClickListener {
-            val intent = Intent(requireContext(), TambahJadwalActivity::class.java)
-            tambahJadwalLauncher.launch(intent)
+            context?.let { ctx ->
+                val intent = Intent(ctx, TambahJadwalActivity::class.java)
+
+                try {
+                    tambahJadwalLauncher.launch(intent)
+                } catch (e: Exception) {
+                    Toast.makeText(ctx, "Gagal membuka halaman: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
