@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/home_background">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tambah Tugas Baru"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/home_text_primary"
+        android:layout_marginBottom="24dp"/>
+
+    <EditText
+        android:id="@+id/et_matkul_tugas"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Nama Mata Kuliah"
+        android:background="@drawable/bg_jadwal_input"
+        android:paddingHorizontal="16dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/et_deskripsi_tugas"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Deskripsi Tugas (cth: Membuat Makalah)"
+        android:background="@drawable/bg_jadwal_input"
+        android:paddingHorizontal="16dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/et_tanggal_tugas"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Tenggat Waktu (Klik untuk pilih)"
+        android:background="@drawable/bg_jadwal_input"
+        android:paddingHorizontal="16dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@color/white"
+        android:layout_marginBottom="16dp"
+
+        android:focusable="false"
+        android:clickable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prioritas:"
+        android:textColor="@color/home_text_primary"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <RadioGroup
+        android:id="@+id/rg_prioritas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="32dp">
+
+        <RadioButton
+            android:id="@+id/rb_tinggi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tinggi"
+            android:layout_weight="1"/>
+
+        <RadioButton
+            android:id="@+id/rb_sedang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sedang"
+            android:layout_weight="1"/>
+
+        <RadioButton
+            android:id="@+id/rb_rendah"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rendah"
+            android:layout_weight="1"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_simpan_tugas"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Simpan Tugas"
+        android:backgroundTint="@color/login_button_background"/>
+
+</LinearLayout>
