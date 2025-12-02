@@ -39,12 +39,12 @@ class TambahJadwalActivity : AppCompatActivity() {
             val waktu = etWaktu.text.toString()
 
             if (hari.isEmpty() || matkul.isEmpty() || ruang.isEmpty() || waktu.isEmpty()) {
-                Toast.makeText(this, "Mohon lengkapi semua data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "mohon melengkapi semua data", Toast.LENGTH_SHORT).show()
             } else {
                 val jadwalBaru = Jadwal(hari, matkul, ruang, waktu)
 
                 val resultIntent = Intent()
-                resultIntent.putExtra("JADWAL_BARU", jadwalBaru)
+                resultIntent.putExtra("Jadwal Baru", jadwalBaru)
                 setResult(Activity.RESULT_OK, resultIntent)
                 finish()
             }
@@ -59,7 +59,6 @@ class TambahJadwalActivity : AppCompatActivity() {
                 calendar.set(Calendar.MONTH, month)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                // Format: Senin, 15 Desember 2025
                 val formatTanggal = "EEEE, dd MMMM yyyy"
                 val sdf = SimpleDateFormat(formatTanggal, Locale("id", "ID"))
                 editText.setText(sdf.format(calendar.time))
