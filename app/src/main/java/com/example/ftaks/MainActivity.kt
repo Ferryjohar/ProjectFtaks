@@ -1,89 +1,90 @@
 package com.example.ftaks
 
-import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity() {
-    val tambahJadwalLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            val jadwalBaru = data?.getParcelableExtra<Jadwal>("JADWAL_BARU")
 
-            if (jadwalBaru != null) {
-                Toast.makeText(
-                    this,
-                    "Jadwal ${jadwalBaru.mataKuliah} berhasil ditambahkan!",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
+    // Siapkan Fragment
+    private val fragmentTugas = TugasFragment()
+    private val fragmentJadwal = JadwalFragment()
+    private val fragmentBerita = BeritaFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Setup Edge-to-Edge
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(0, systemBars.top, 0, 0)
             insets
         }
 
+        // 1. Set Username (Header tetap di Activity)
         val username = intent.getStringExtra(LoginActivity.KEY_USERNAME)
         val tvUsername: TextView = findViewById(R.id.tv_username)
+        tvUsername.text = if (!username.isNullOrEmpty()) username else "Pengguna"
 
-        if (username != null && username.isNotEmpty()) {
-            tvUsername.text = username
-        } else {
-            tvUsername.text = "Pengguna"
-        }
+        // 2. Inisialisasi Tombol Tab
+        val tabTugas: TextView = findViewById(R.id.tab_tugas)
         val tabJadwal: TextView = findViewById(R.id.tab_jadwal)
-        tabJadwal.setOnClickListener {
-            val intent = Intent(this, TambahJadwalActivity::class.java)
-            tambahJadwalLauncher.launch(intent)
+        val tabBerita: TextView = findViewById(R.id.tab_berita)
+
+        // 3. Tampilkan Fragment Awal (Tugas)
+        gantiFragment(fragmentTugas)
+        aturWarnaTab(tabTugas, tabJadwal, tabBerita)
+
+        // 4. Listener Tombol TUGAS
+        tabTugas.setOnClickListener {
+            gantiFragment(fragmentTugas)
+            aturWarnaTab(tabTugas, tabJadwal, tabBerita)
         }
-        val rvTugasAktif: RecyclerView = findViewById(R.id.rv_tugas_aktif)
-        val rvTugasSelesai: RecyclerView = findViewById(R.id.rv_tugas_selesai)
-        val tvLabelTugasAktif: TextView = findViewById(R.id.tv_label_tugas_aktif)
-        val tvLabelSelesai: TextView = findViewById(R.id.tv_label_selesai)
 
-        val listDataTugasAktif = buatDataTugasAktif()
-        val listDataTugasSelesai = buatDataTugasSelesai()
+        // 5. Listener Tombol JADWAL
+        tabJadwal.setOnClickListener {
+            // Jika Anda ingin "Tab Jadwal" langsung membuka halaman tambah jadwal (Activity baru):
+            // val intent = Intent(this, TambahJadwalActivity::class.java)
+            // startActivity(intent)
 
-        tvLabelTugasAktif.text = "Tugas Aktif (${listDataTugasAktif.size})"
-        tvLabelSelesai.text = "Selesai (${listDataTugasSelesai.size})"
+            // TAPI, jika ingin pindah Fragment Jadwal:
+            gantiFragment(fragmentJadwal)
+            aturWarnaTab(tabJadwal, tabTugas, tabBerita)
+        }
 
-        val adapterAktif = TugasAdapter(this, listDataTugasAktif)
-        rvTugasAktif.layoutManager = LinearLayoutManager(this)
-        rvTugasAktif.adapter = adapterAktif
-
-        val adapterSelesai = TugasAdapter(this, listDataTugasSelesai)
-        rvTugasSelesai.layoutManager = LinearLayoutManager(this)
-        rvTugasSelesai.adapter = adapterSelesai
+        // 6. Listener Tombol BERITA
+        tabBerita.setOnClickListener {
+            gantiFragment(fragmentBerita)
+            aturWarnaTab(tabBerita, tabTugas, tabJadwal)
+        }
     }
 
-    fun buatDataTugasAktif(): List<Tugas> {
-        return listOf(
-            Tugas("Tugas Matakuliah Manajemen proyek", "membuat SCRUM", "Kamis, 12 Juni 2025", Prioritas.TINGGI),
-            Tugas("Tugas Matakuliah Manajemen proyek", "membuat SCRUM", "Kamis, 12 Juni 2025", Prioritas.SEDANG),
-            Tugas("Tugas UI & UX", "Project UAS portofolio Desain", "Minggu, 15 Juni 2025", Prioritas.RENDAH)
-        )
+    // Fungsi Ganti Fragment
+    private fun gantiFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment_container, fragment)
+            commit()
+        }
     }
 
-    fun buatDataTugasSelesai(): List<Tugas> {
-        return listOf(
-            Tugas("Tugas UI & UX", "Project UAS portofolio Desain", "Minggu, 15 Juni 2025", Prioritas.RENDAH)
-        )
+    // Fungsi Atur Warna Tombol
+    private fun aturWarnaTab(aktif: TextView, pasif1: TextView, pasif2: TextView) {
+        // Tombol Aktif: Background Biru, Teks Putih
+        aktif.background = ContextCompat.getDrawable(this, R.drawable.bg_tab_selected)
+        aktif.setTextColor(Color.WHITE)
+
+        // Tombol Pasif: Background Kosong, Teks Abu
+        pasif1.background = null
+        pasif1.setTextColor(ContextCompat.getColor(this, R.color.home_text_secondary))
+
+        pasif2.background = null
+        pasif2.setTextColor(ContextCompat.getColor(this, R.color.home_text_secondary))
     }
 }
