@@ -14,6 +14,6 @@ data class Tugas(
     val deskripsi: String,
     val tanggal: String,
     val prioritas: Prioritas,
-    var isSelesai: Boolean = false, // Penanda status
-    var waktuSelesai: Long = 0 // Menyimpan waktu (timestamp) saat selesai
+    var isSelesai: Boolean = false,
+    var waktuSelesai: Long = 0
 ) : Parcelable

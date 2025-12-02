@@ -17,23 +17,20 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TugasFragment : Fragment() {
 
-    private lateinit var adapterAktif: TugasAdapter
-    private lateinit var adapterSelesai: TugasAdapter
+    val listTugasAktif: ArrayList<Tugas> = ArrayList()
+    val listTugasSelesai: ArrayList<Tugas> = ArrayList()
 
-    private val listTugasAktif: ArrayList<Tugas> = ArrayList()
-    private val listTugasSelesai: ArrayList<Tugas> = ArrayList()
-
-    private lateinit var tvLabelTugasAktif: TextView
-    private lateinit var tvLabelSelesai: TextView
-
-    private val tambahTugasLauncher = registerForActivityResult(
+    val tambahTugasLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val tugasBaru = result.data?.getParcelableExtra<Tugas>("TUGAS_BARU")
             if (tugasBaru != null) {
                 listTugasAktif.add(0, tugasBaru)
-                adapterAktif.notifyItemInserted(0)
+
+                val rvAktif = view?.findViewById<RecyclerView>(R.id.rv_tugas_aktif)
+                rvAktif?.adapter?.notifyItemInserted(0)
+
                 updateLabels()
             }
         }
@@ -48,34 +45,26 @@ class TugasFragment : Fragment() {
 
         val rvTugasAktif: RecyclerView = view.findViewById(R.id.rv_tugas_aktif)
         val rvTugasSelesai: RecyclerView = view.findViewById(R.id.rv_tugas_selesai)
-        tvLabelTugasAktif = view.findViewById(R.id.tv_label_tugas_aktif)
-        tvLabelSelesai = view.findViewById(R.id.tv_label_selesai)
         val btnTambah: Button = view.findViewById(R.id.btn_tambah_tugas)
 
-        // Data Dummy (Hanya muncul jika list kosong)
         if (listTugasAktif.isEmpty() && listTugasSelesai.isEmpty()) {
             listTugasAktif.addAll(buatDataTugasAktif())
         }
 
-        // CATATAN: Kode "bersihkanTugasLama()" SUDAH DIHAPUS DI SINI.
-        // Jadi tugas selesai akan tetap ada selamanya.
-
-        // 1. ADAPTER TUGAS AKTIF
-        adapterAktif = TugasAdapter(
+        val adapterAktif = TugasAdapter(
             requireContext(),
             listTugasAktif,
-            onDeleteClick = { pos -> konfirmasiHapus(listTugasAktif, adapterAktif, pos) },
+            onDeleteClick = { pos -> konfirmasiHapus(listTugasAktif, pos, true) },
             onDoneClick = { pos -> pindahkanKeSelesai(pos) }
         )
         rvTugasAktif.layoutManager = LinearLayoutManager(requireContext())
         rvTugasAktif.adapter = adapterAktif
 
-        // 2. ADAPTER TUGAS SELESAI
-        adapterSelesai = TugasAdapter(
+        val adapterSelesai = TugasAdapter(
             requireContext(),
             listTugasSelesai,
-            onDeleteClick = { pos -> konfirmasiHapus(listTugasSelesai, adapterSelesai, pos) },
-            onDoneClick = { } // Tidak melakukan apa-apa (sudah selesai)
+            onDeleteClick = { pos -> konfirmasiHapus(listTugasSelesai, pos, false) },
+            onDoneClick = { }
         )
         rvTugasSelesai.layoutManager = LinearLayoutManager(requireContext())
         rvTugasSelesai.adapter = adapterSelesai
@@ -88,44 +77,53 @@ class TugasFragment : Fragment() {
         }
     }
 
-    private fun pindahkanKeSelesai(position: Int) {
+    fun pindahkanKeSelesai(position: Int) {
         val tugas = listTugasAktif[position]
-
         tugas.isSelesai = true
-        // Kita tidak perlu mencatat waktuSelesai lagi karena tidak ada penghapusan otomatis
 
         listTugasAktif.removeAt(position)
-        listTugasSelesai.add(0, tugas) // Masuk ke paling atas list selesai
+        listTugasSelesai.add(0, tugas)
 
-        adapterAktif.notifyItemRemoved(position)
-        adapterAktif.notifyItemRangeChanged(position, listTugasAktif.size)
+        val rvAktif = view?.findViewById<RecyclerView>(R.id.rv_tugas_aktif)
+        val rvSelesai = view?.findViewById<RecyclerView>(R.id.rv_tugas_selesai)
 
-        adapterSelesai.notifyItemInserted(0)
+        rvAktif?.adapter?.notifyItemRemoved(position)
+        rvAktif?.adapter?.notifyItemRangeChanged(position, listTugasAktif.size)
+
+        rvSelesai?.adapter?.notifyItemInserted(0)
 
         updateLabels()
         Toast.makeText(requireContext(), "Tugas Selesai!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun konfirmasiHapus(list: ArrayList<Tugas>, adapter: TugasAdapter, position: Int) {
+    fun konfirmasiHapus(list: ArrayList<Tugas>, position: Int, isAktif: Boolean) {
         AlertDialog.Builder(requireContext())
             .setTitle("Hapus Tugas")
             .setMessage("Yakin ingin menghapus tugas ini?")
             .setPositiveButton("Hapus") { _, _ ->
                 list.removeAt(position)
-                adapter.notifyItemRemoved(position)
-                adapter.notifyItemRangeChanged(position, list.size)
+
+                val rvId = if (isAktif) R.id.rv_tugas_aktif else R.id.rv_tugas_selesai
+                val rv = view?.findViewById<RecyclerView>(rvId)
+
+                rv?.adapter?.notifyItemRemoved(position)
+                rv?.adapter?.notifyItemRangeChanged(position, list.size)
+
                 updateLabels()
             }
             .setNegativeButton("Batal", null)
             .show()
     }
 
-    private fun updateLabels() {
-        tvLabelTugasAktif.text = "Tugas Aktif (${listTugasAktif.size})"
-        tvLabelSelesai.text = "Selesai (${listTugasSelesai.size})"
+    fun updateLabels() {
+        val tvLabelTugasAktif = view?.findViewById<TextView>(R.id.tv_label_tugas_aktif)
+        val tvLabelSelesai = view?.findViewById<TextView>(R.id.tv_label_selesai)
+
+        tvLabelTugasAktif?.text = "Tugas Aktif (${listTugasAktif.size})"
+        tvLabelSelesai?.text = "Selesai (${listTugasSelesai.size})"
     }
 
-    private fun buatDataTugasAktif(): List<Tugas> {
+    fun buatDataTugasAktif(): List<Tugas> {
         return listOf(
             Tugas("Tugas Matakuliah Manajemen", "membuat SCRUM", "Kamis, 12 Juni", Prioritas.TINGGI),
             Tugas("Tugas UI/UX", "Desain Prototype", "Jumat, 13 Juni", Prioritas.SEDANG)

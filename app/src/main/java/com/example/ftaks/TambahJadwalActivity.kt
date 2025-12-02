@@ -14,7 +14,7 @@ import java.util.Locale
 
 class TambahJadwalActivity : AppCompatActivity() {
 
-    private val calendar = Calendar.getInstance()
+    val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +26,10 @@ class TambahJadwalActivity : AppCompatActivity() {
         val etWaktu = findViewById<EditText>(R.id.et_waktu_perkuliahan)
         val btnSimpan = findViewById<Button>(R.id.btn_simpan_jadwal)
 
-        // 1. Event Klik untuk Kalender
         etHariTanggal.setOnClickListener {
             showDatePicker(etHariTanggal)
         }
 
-        // 2. Event Klik Simpan
         btnSimpan.setOnClickListener {
             val hari = etHariTanggal.text.toString()
             val matkul = etMataKuliah.text.toString()
@@ -44,14 +42,14 @@ class TambahJadwalActivity : AppCompatActivity() {
                 val jadwalBaru = Jadwal(hari, matkul, ruang, waktu)
 
                 val resultIntent = Intent()
-                resultIntent.putExtra("Jadwal Baru", jadwalBaru)
+                resultIntent.putExtra("JADWAL_BARU", jadwalBaru)
                 setResult(Activity.RESULT_OK, resultIntent)
                 finish()
             }
         }
     }
 
-    private fun showDatePicker(editText: EditText) {
+    fun showDatePicker(editText: EditText) {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, year, month, dayOfMonth ->

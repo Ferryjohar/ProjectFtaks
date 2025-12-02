@@ -15,8 +15,7 @@ import java.util.Locale // Import untuk Bahasa Indonesia
 
 class TambahTugasActivity : AppCompatActivity() {
 
-    // Variabel Calendar untuk menampung tanggal yang dipilih
-    private val calendar = Calendar.getInstance()
+    val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +27,6 @@ class TambahTugasActivity : AppCompatActivity() {
         val rgPrioritas = findViewById<RadioGroup>(R.id.rg_prioritas)
         val btnSimpan = findViewById<Button>(R.id.btn_simpan_tugas)
 
-        // 1. EVENT KLIK PADA KOLOM TANGGAL
         etTanggal.setOnClickListener {
             showDatePicker(etTanggal)
         }
@@ -57,23 +55,16 @@ class TambahTugasActivity : AppCompatActivity() {
         }
     }
 
-    // 2. FUNGSI UNTUK MEMUNCULKAN KALENDER
-    private fun showDatePicker(editText: EditText) {
-        // Buat DatePickerDialog
+    fun showDatePicker(editText: EditText) {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, year, month, dayOfMonth ->
-                // Saat user memilih tanggal:
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, month)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                // Format tanggal ke teks (Contoh: "Kamis, 12 Juni 2025")
-                // "EEEE" = Nama Hari, "dd" = Tanggal, "MMMM" = Bulan, "yyyy" = Tahun
                 val formatTanggal = "EEEE, dd MMMM yyyy"
-                val sdf = SimpleDateFormat(formatTanggal, Locale("id", "ID")) // Pakai Bahasa Indonesia
-
-                // Set hasil format ke EditText
+                val sdf = SimpleDateFormat(formatTanggal, Locale("id", "ID"))
                 editText.setText(sdf.format(calendar.time))
             },
             calendar.get(Calendar.YEAR),
@@ -81,7 +72,6 @@ class TambahTugasActivity : AppCompatActivity() {
             calendar.get(Calendar.DAY_OF_MONTH)
         )
 
-        // Tampilkan dialog
         datePickerDialog.show()
     }
 }

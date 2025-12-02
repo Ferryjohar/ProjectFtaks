@@ -19,8 +19,6 @@ class BeritaFragment : Fragment() {
 
         val rvBerita: RecyclerView = view.findViewById(R.id.rv_berita)
 
-        // 1. Buat Data Dummy (Pastikan Anda punya gambar di drawable)
-        // Ganti R.drawable.img_berita_1 dengan nama file gambar Anda
         val listBerita = listOf(
             Berita(
                 judul = "Kisah Shareent, Lolos ke FEB UGM Tanpa Tes",
@@ -34,13 +32,11 @@ class BeritaFragment : Fragment() {
                 ringkasan = "Selengkapnya.",
                 isiLengkap = "Bagi yang gagal SNBT jangan khawatir, berikut adalah daftar 15 PTN yang masih membuka jalur mandiri dengan kuota yang cukup banyak...",
                 tanggal = "Selasa, 13 Juni 2025",
-                gambar = R.drawable.img_berita_2 // Ganti dengan gambar asli Anda
+                gambar = R.drawable.img_berita_2
             )
         )
 
-        // 2. Setup Adapter dengan Listener Klik
         val adapter = BeritaAdapter(requireContext(), listBerita) { beritaKlik ->
-            // Saat item diklik, pindah ke Detail Activity
             val intent = Intent(requireContext(), DetailBeritaActivity::class.java)
             intent.putExtra("DATA_BERITA", beritaKlik)
             startActivity(intent)

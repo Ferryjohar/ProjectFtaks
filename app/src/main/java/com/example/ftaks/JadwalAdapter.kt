@@ -11,9 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class JadwalAdapter(
-    private val context: Context,
-    private val listJadwal: List<Jadwal>,
-    private val onDeleteClick: (Int) -> Unit
+    val context: Context,
+    val listJadwal: List<Jadwal>,
+    val onDeleteClick: (Int) -> Unit
 ) : RecyclerView.Adapter<JadwalAdapter.JadwalViewHolder>() {
 
     inner class JadwalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -40,46 +40,36 @@ class JadwalAdapter(
     override fun onBindViewHolder(holder: JadwalViewHolder, position: Int) {
         val jadwal = listJadwal[position]
 
-        // Set Data Teks
         holder.tvMatkul.text = jadwal.mataKuliah
         holder.tvWaktu.text = jadwal.waktu
         holder.tvRuang.text = jadwal.ruangKelas
         holder.tvHari.text = jadwal.hariTanggal
 
-        // --- LOGIKA GROUPING & MENYATU ---
-
-        // Cek data sebelumnya dan sesudahnya
         val prevJadwal = if (position > 0) listJadwal[position - 1] else null
         val nextJadwal = if (position < listJadwal.size - 1) listJadwal[position + 1] else null
 
         val isSameDayAsPrev = prevJadwal != null && prevJadwal.hariTanggal == jadwal.hariTanggal
         val isSameDayAsNext = nextJadwal != null && nextJadwal.hariTanggal == jadwal.hariTanggal
 
-        // 1. ATUR VISIBILITY HEADER TANGGAL
         if (isSameDayAsPrev) {
-            holder.tvHari.visibility = View.GONE // Sembunyikan jika sama dengan atasnya
+            holder.tvHari.visibility = View.GONE
         } else {
-            holder.tvHari.visibility = View.VISIBLE // Tampilkan jika beda (atau item pertama)
+            holder.tvHari.visibility = View.VISIBLE
         }
 
-        // 2. ATUR BENTUK BACKGROUND (BULAT/KOTAK)
         if (!isSameDayAsPrev && !isSameDayAsNext) {
-            // Sendirian: Bulat Semua
             holder.container.background = ContextCompat.getDrawable(context, R.drawable.bg_item_single)
             holder.divider.visibility = View.GONE
         }
         else if (!isSameDayAsPrev && isSameDayAsNext) {
-            // Paling Atas: Bulat Atas, Kotak Bawah
             holder.container.background = ContextCompat.getDrawable(context, R.drawable.bg_item_top)
-            holder.divider.visibility = View.VISIBLE // Tampilkan garis pemisah di bawahnya
+            holder.divider.visibility = View.VISIBLE
         }
         else if (isSameDayAsPrev && isSameDayAsNext) {
-            // Tengah-tengah: Kotak Semua
             holder.container.background = ContextCompat.getDrawable(context, R.drawable.bg_item_top)
             holder.divider.visibility = View.VISIBLE
         }
         else if (isSameDayAsPrev && !isSameDayAsNext) {
-            // Paling Bawah: Kotak Atas, Bulat Bawah
             holder.container.background = ContextCompat.getDrawable(context, R.drawable.bg_item_bottom)
             holder.divider.visibility = View.GONE
         }

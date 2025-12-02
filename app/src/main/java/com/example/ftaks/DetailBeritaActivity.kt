@@ -19,7 +19,6 @@ class DetailBeritaActivity : AppCompatActivity() {
         val tvTanggal: TextView = findViewById(R.id.tv_detail_tanggal)
         val tvIsi: TextView = findViewById(R.id.tv_detail_isi)
 
-        // 3. Tampilkan Data
         if (berita != null) {
             ivGambar.setImageResource(berita.gambar)
             tvJudul.text = berita.judul

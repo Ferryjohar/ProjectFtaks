@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class BeritaAdapter(
-    private val context: Context,
-    private val listBerita: List<Berita>,
-    private val onItemClick: (Berita) -> Unit // Callback saat diklik
+    val context: Context,
+    val listBerita: List<Berita>,
+    val onItemClick: (Berita) -> Unit
 ) : RecyclerView.Adapter<BeritaAdapter.BeritaViewHolder>() {
 
     inner class BeritaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
