@@ -17,16 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TugasFragment : Fragment() {
 
-    val listTugasAktif: ArrayList<Tugas> = ArrayList()
-    val listTugasSelesai: ArrayList<Tugas> = ArrayList()
-
     val tambahTugasLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val tugasBaru = result.data?.getParcelableExtra<Tugas>("TUGAS_BARU")
             if (tugasBaru != null) {
-                listTugasAktif.add(0, tugasBaru)
+                DataPenyimpanan.listTugasAktif.add(0, tugasBaru)
 
                 val rvAktif = view?.findViewById<RecyclerView>(R.id.rv_tugas_aktif)
                 rvAktif?.adapter?.notifyItemInserted(0)
@@ -47,14 +44,14 @@ class TugasFragment : Fragment() {
         val rvTugasSelesai: RecyclerView = view.findViewById(R.id.rv_tugas_selesai)
         val btnTambah: Button = view.findViewById(R.id.btn_tambah_tugas)
 
-        if (listTugasAktif.isEmpty() && listTugasSelesai.isEmpty()) {
-            listTugasAktif.addAll(buatDataTugasAktif())
+        if (DataPenyimpanan.listTugasAktif.isEmpty() && DataPenyimpanan.listTugasSelesai.isEmpty()) {
+            DataPenyimpanan.listTugasAktif.addAll(buatDataTugasAktif())
         }
 
         val adapterAktif = TugasAdapter(
             requireContext(),
-            listTugasAktif,
-            onDeleteClick = { pos -> konfirmasiHapus(listTugasAktif, pos, true) },
+            DataPenyimpanan.listTugasAktif,
+            onDeleteClick = { pos -> konfirmasiHapus(DataPenyimpanan.listTugasAktif, pos, true) },
             onDoneClick = { pos -> pindahkanKeSelesai(pos) }
         )
         rvTugasAktif.layoutManager = LinearLayoutManager(requireContext())
@@ -62,8 +59,8 @@ class TugasFragment : Fragment() {
 
         val adapterSelesai = TugasAdapter(
             requireContext(),
-            listTugasSelesai,
-            onDeleteClick = { pos -> konfirmasiHapus(listTugasSelesai, pos, false) },
+            DataPenyimpanan.listTugasSelesai,
+            onDeleteClick = { pos -> konfirmasiHapus(DataPenyimpanan.listTugasSelesai, pos, false) },
             onDoneClick = { }
         )
         rvTugasSelesai.layoutManager = LinearLayoutManager(requireContext())
@@ -84,17 +81,17 @@ class TugasFragment : Fragment() {
     }
 
     fun pindahkanKeSelesai(position: Int) {
-        val tugas = listTugasAktif[position]
+        val tugas = DataPenyimpanan.listTugasAktif[position]
         tugas.isSelesai = true
 
-        listTugasAktif.removeAt(position)
-        listTugasSelesai.add(0, tugas)
+        DataPenyimpanan.listTugasAktif.removeAt(position)
+        DataPenyimpanan.listTugasSelesai.add(0, tugas)
 
         val rvAktif = view?.findViewById<RecyclerView>(R.id.rv_tugas_aktif)
         val rvSelesai = view?.findViewById<RecyclerView>(R.id.rv_tugas_selesai)
 
         rvAktif?.adapter?.notifyItemRemoved(position)
-        rvAktif?.adapter?.notifyItemRangeChanged(position, listTugasAktif.size)
+        rvAktif?.adapter?.notifyItemRangeChanged(position, DataPenyimpanan.listTugasAktif.size)
 
         rvSelesai?.adapter?.notifyItemInserted(0)
 
@@ -125,8 +122,8 @@ class TugasFragment : Fragment() {
         val tvLabelTugasAktif = view?.findViewById<TextView>(R.id.tv_label_tugas_aktif)
         val tvLabelSelesai = view?.findViewById<TextView>(R.id.tv_label_selesai)
 
-        tvLabelTugasAktif?.text = "Tugas Aktif (${listTugasAktif.size})"
-        tvLabelSelesai?.text = "Selesai (${listTugasSelesai.size})"
+        tvLabelTugasAktif?.text = "Tugas Aktif (${DataPenyimpanan.listTugasAktif.size})"
+        tvLabelSelesai?.text = "Selesai (${DataPenyimpanan.listTugasSelesai.size})"
     }
 
     fun buatDataTugasAktif(): List<Tugas> {

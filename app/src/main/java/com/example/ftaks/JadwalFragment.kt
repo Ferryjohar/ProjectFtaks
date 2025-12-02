@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 class JadwalFragment : Fragment() {
 
-    val listJadwal: ArrayList<Jadwal> = ArrayList()
     val tambahJadwalLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -24,7 +23,7 @@ class JadwalFragment : Fragment() {
             val jadwalBaru = result.data?.getParcelableExtra<Jadwal>("JADWAL_BARU")
 
             if (jadwalBaru != null) {
-                listJadwal.add(jadwalBaru)
+                DataPenyimpanan.listJadwal.add(jadwalBaru)
                 urutkanJadwal()
 
                 val rvJadwal = view?.findViewById<RecyclerView>(R.id.rv_jadwal)
@@ -43,14 +42,14 @@ class JadwalFragment : Fragment() {
         val rvJadwal: RecyclerView = view.findViewById(R.id.rv_jadwal)
         val btnTambah: Button = view.findViewById(R.id.btn_tambah_jadwal)
 
-        if (listJadwal.isEmpty()) {
-            listJadwal.add(Jadwal("Senin, 15 Des 2025", "Tata Kelola IT", "R. 313", "08.40 - 10.40"))
-            listJadwal.add(Jadwal("Selasa, 16 Des 2025", "Kripto", "Lab 301", "07.30 - 10.00"))
-            listJadwal.add(Jadwal("Senin, 15 Des 2025", "Pancasila", "R. 311", "17.30 - 19.00"))
+        if (DataPenyimpanan.listJadwal.isEmpty()) {
+            DataPenyimpanan.listJadwal.add(Jadwal("Senin, 15 Des 2025", "Tata Kelola IT", "R. 313", "08.40 - 10.40"))
+            DataPenyimpanan.listJadwal.add(Jadwal("Selasa, 16 Des 2025", "Kripto", "Lab 301", "07.30 - 10.00"))
+            DataPenyimpanan.listJadwal.add(Jadwal("Senin, 15 Des 2025", "Pancasila", "R. 311", "17.30 - 19.00"))
             urutkanJadwal()
         }
 
-        val adapter = JadwalAdapter(requireContext(), listJadwal) { position ->
+        val adapter = JadwalAdapter(requireContext(), DataPenyimpanan.listJadwal) { position ->
             konfirmasiHapus(position)
         }
 
@@ -71,7 +70,7 @@ class JadwalFragment : Fragment() {
     }
 
     fun urutkanJadwal() {
-        listJadwal.sortBy { it.hariTanggal }
+        DataPenyimpanan.listJadwal.sortBy { it.hariTanggal }
     }
 
     fun konfirmasiHapus(position: Int) {
@@ -79,7 +78,7 @@ class JadwalFragment : Fragment() {
             .setTitle("Hapus Jadwal")
             .setMessage("Yakin ingin menghapus jadwal mata kuliah ini?")
             .setPositiveButton("Hapus") { _, _ ->
-                listJadwal.removeAt(position)
+                DataPenyimpanan.listJadwal.removeAt(position)
 
                 val rvJadwal = view?.findViewById<RecyclerView>(R.id.rv_jadwal)
                 rvJadwal?.adapter?.notifyDataSetChanged()
