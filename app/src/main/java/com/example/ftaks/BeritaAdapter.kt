@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
 
 class BeritaAdapter(
@@ -12,11 +13,11 @@ class BeritaAdapter(
     val listBerita: List<Berita>,
     val onItemClick: (Berita) -> Unit
 ) : RecyclerView.Adapter<BeritaAdapter.BeritaViewHolder>() {
-
     inner class BeritaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         val tvJudul: TextView = itemView.findViewById(R.id.tv_judul_berita)
-
+        val tvDeskripsiBeritaSingkat: TextView = itemView.findViewById(R.id.tv_deskripsiSingkat)
+        val tvKategori: TextView = itemView.findViewById(R.id.tv_kategori)
         init {
             itemView.setOnClickListener {
                 onItemClick(listBerita[adapterPosition])
@@ -35,5 +36,14 @@ class BeritaAdapter(
         val berita = listBerita[position]
         holder.tvJudul.text = berita.judul
         holder.imgThumbnail.setImageResource(berita.gambar)
+        holder.tvDeskripsiBeritaSingkat.text = potongDeskripsi(berita.deskripsiberita)
+        holder.tvKategori.text = "${berita.tanggal} ${berita.kategori.displayName}"
+    }
+    fun potongDeskripsi(text: String, maxChar: Int = 60): CharSequence {
+        return if (text.length > maxChar) {
+            text.substring(0, maxChar) + "... lihat lainnya"
+        } else {
+            text
+        }
     }
 }

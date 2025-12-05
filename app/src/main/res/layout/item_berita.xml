@@ -4,6 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
     app:cardCornerRadius="15dp"
     app:cardElevation="0dp"
     android:layout_marginBottom="16dp"
@@ -49,13 +52,21 @@
                 android:ellipsize="end"/>
 
             <TextView
+                android:id="@+id/tv_deskripsiSingkat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Selengkapnya."
                 android:textColor="#4285F4"
                 android:textSize="12sp"
                 android:layout_marginTop="4dp"/>
+            <TextView
+                android:id="@+id/tv_kategori"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kategori"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="10sp"
+                android:layout_marginTop="1dp"/>
         </LinearLayout>
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

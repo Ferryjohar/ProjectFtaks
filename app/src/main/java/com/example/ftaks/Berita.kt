@@ -6,8 +6,13 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Berita(
     val judul: String,
-    val ringkasan: String,
-    val isiLengkap: String,
+    val deskripsiberita: String,
     val tanggal: String,
-    val gambar: Int
+    val gambar: Int,
+    val kategori: BeritaCategory
 ) : Parcelable
+enum class BeritaCategory(val displayName: String){
+    Akademik("Akademik"),
+    Event("Event Kampus"),
+    Umum("Informasi Umum")
+}

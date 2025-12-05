@@ -23,7 +23,7 @@ class DetailBeritaActivity : AppCompatActivity() {
             ivGambar.setImageResource(berita.gambar)
             tvJudul.text = berita.judul
             tvTanggal.text = berita.tanggal
-            tvIsi.text = berita.isiLengkap
+            tvIsi.text = berita.deskripsiberita
         }
     }
 }
