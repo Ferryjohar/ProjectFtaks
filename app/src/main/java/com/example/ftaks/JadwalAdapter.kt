@@ -45,12 +45,15 @@ class JadwalAdapter(
         holder.tvRuang.text = jadwal.ruangKelas
         holder.tvHari.text = jadwal.hariTanggal
 
+        //cek tanggal item
         val prevJadwal = if (position > 0) listJadwal[position - 1] else null
         val nextJadwal = if (position < listJadwal.size - 1) listJadwal[position + 1] else null
 
+        //cek hari
         val isSameDayAsPrev = prevJadwal != null && prevJadwal.hariTanggal == jadwal.hariTanggal
         val isSameDayAsNext = nextJadwal != null && nextJadwal.hariTanggal == jadwal.hariTanggal
 
+        //kondisi header
         if (isSameDayAsPrev) {
             holder.tvHari.visibility = View.GONE
         } else {
@@ -66,7 +69,7 @@ class JadwalAdapter(
             holder.divider.visibility = View.VISIBLE
         }
         else if (isSameDayAsPrev && isSameDayAsNext) {
-            holder.container.background = ContextCompat.getDrawable(context, R.drawable.bg_item_top)
+            holder.container.background = ContextCompat.getDrawable(context, R.drawable.bg_item_middle)
             holder.divider.visibility = View.VISIBLE
         }
         else if (isSameDayAsPrev && !isSameDayAsNext) {

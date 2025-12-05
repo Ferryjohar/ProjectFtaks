@@ -42,13 +42,6 @@ class JadwalFragment : Fragment() {
         val rvJadwal: RecyclerView = view.findViewById(R.id.rv_jadwal)
         val btnTambah: Button = view.findViewById(R.id.btn_tambah_jadwal)
 
-        if (DataPenyimpanan.listJadwal.isEmpty()) {
-            DataPenyimpanan.listJadwal.add(Jadwal("Senin, 15 Des 2025", "Tata Kelola IT", "R. 313", "08.40 - 10.40"))
-            DataPenyimpanan.listJadwal.add(Jadwal("Selasa, 16 Des 2025", "Kripto", "Lab 301", "07.30 - 10.00"))
-            DataPenyimpanan.listJadwal.add(Jadwal("Senin, 15 Des 2025", "Pancasila", "R. 311", "17.30 - 19.00"))
-            urutkanJadwal()
-        }
-
         val adapter = JadwalAdapter(requireContext(), DataPenyimpanan.listJadwal) { position ->
             konfirmasiHapus(position)
         }

@@ -40,7 +40,6 @@ class TambahJadwalActivity : AppCompatActivity() {
                 Toast.makeText(this, "mohon melengkapi semua data", Toast.LENGTH_SHORT).show()
             } else {
                 val jadwalBaru = Jadwal(hari, matkul, ruang, waktu)
-
                 val resultIntent = Intent()
                 resultIntent.putExtra("JADWAL_BARU", jadwalBaru)
                 setResult(Activity.RESULT_OK, resultIntent)
