@@ -26,11 +26,13 @@ class LoginActivity : AppCompatActivity() {
 
         buttonLogin.setOnClickListener {
             val username = editTextUsername.text.toString()
+            val password = editTextPassword.text.toString()
             if (editTextUsername.text.toString()=="ferry" && editTextPassword.text.toString()=="1234"){
                 Toast.makeText(this, "Login Berhasil", Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra(KEY_USERNAME,username)
+                intent.putExtra(KEY_PASSWORD, password)
                 startActivity(intent)
 
             }else{
@@ -41,5 +43,6 @@ class LoginActivity : AppCompatActivity() {
     }
     companion object KEY {
         const val KEY_USERNAME = "username"
+        const val KEY_PASSWORD = "password"
     }
 }

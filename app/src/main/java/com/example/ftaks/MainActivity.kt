@@ -2,7 +2,9 @@ package com.example.ftaks
 
 import android.content.Intent
 import android.graphics.Color
+import android.media.Image
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -30,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         val tabJadwal: TextView = findViewById(R.id.tab_jadwal)
         val tabBerita: TextView = findViewById(R.id.tab_berita)
 
+        val ivAvatar: ImageView = findViewById(R.id.iv_avatar)
+
         gantiFragment(TugasFragment())
         aturWarnaTab(tabTugas, tabJadwal, tabBerita)
 
@@ -46,6 +50,20 @@ class MainActivity : AppCompatActivity() {
         tabBerita.setOnClickListener {
             gantiFragment(BeritaFragment())
             aturWarnaTab(tabBerita, tabTugas, tabJadwal)
+        }
+        ivAvatar.setOnClickListener {
+            val username = intent.getStringExtra(LoginActivity.KEY_USERNAME) ?: ""
+            val password = intent.getStringExtra(LoginActivity.KEY_PASSWORD) ?: ""
+
+            val fragment = ProfilFragment.newInstance(username, password)
+            gantiFragment(fragment)
+        }
+        tvUsername.setOnClickListener {
+            val username = intent.getStringExtra(LoginActivity.KEY_USERNAME) ?: ""
+            val password = intent.getStringExtra(LoginActivity.KEY_PASSWORD) ?: ""
+
+            val fragment = ProfilFragment.newInstance(username, password)
+            gantiFragment(fragment)
         }
     }
 
