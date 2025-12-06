@@ -5,8 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import androidx.core.content.ContextCompat
+
 
 class BeritaAdapter(
     val context: Context,
@@ -44,7 +48,20 @@ class BeritaAdapter(
     }
     fun potongDeskripsi(text: String, maxChar: Int = 60): CharSequence {
         return if (text.length > maxChar) {
-            text.substring(0, maxChar) + "... lihat lainnya"
+            val potongan = text.substring(0, maxChar) + "..."
+            val tambahan = "lihat lainnya"
+            val fulltext = potongan + tambahan
+
+            val spannable = SpannableString(fulltext)
+            val warnaHighlight = ContextCompat.getColor(context, R.color.home_text_secondary)
+
+            spannable.setSpan(
+                ForegroundColorSpan(warnaHighlight),
+                potongan.length,
+                fulltext.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            spannable
         } else {
             text
         }

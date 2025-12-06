@@ -11,14 +11,14 @@
     app:cardElevation="0dp"
     android:layout_marginBottom="16dp"
     app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/white"
     app:strokeColor="@color/login_text_title">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp"
-        android:background="@color/home_item_background_blue">
+        android:padding="12dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
@@ -79,9 +79,10 @@
                 android:id="@+id/tv_deskripsiSingkat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Selengkapnya."
+                android:text="deskripsi singktat... Selengkapnya."
                 android:textColor="#4285F4"
                 android:textSize="12sp"
+                android:justificationMode="inter_word"
                 android:layout_marginTop="4dp"/>
         </LinearLayout>
     </LinearLayout>

@@ -19,6 +19,10 @@ class DetailBeritaActivity : AppCompatActivity() {
         val tvKategori: TextView = findViewById(R.id.tv_detail_kategori)
         val tvTanggal: TextView = findViewById(R.id.tv_detail_tanggal)
         val tvIsi: TextView = findViewById(R.id.tv_detail_isi)
+        val btnDetailBack: ImageView = findViewById(R.id.iv_detail_back)
+        btnDetailBack.setOnClickListener {
+            finish()
+        }
 
         if (berita != null) {
             ivGambar.setImageResource(berita.gambar)
