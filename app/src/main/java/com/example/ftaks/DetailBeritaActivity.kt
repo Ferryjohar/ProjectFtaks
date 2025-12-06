@@ -16,12 +16,14 @@ class DetailBeritaActivity : AppCompatActivity() {
         val berita = intent.getParcelableExtra<Berita>("DATA_BERITA")
         val ivGambar: ImageView = findViewById(R.id.iv_detail_gambar)
         val tvJudul: TextView = findViewById(R.id.tv_detail_judul)
+        val tvKategori: TextView = findViewById(R.id.tv_detail_kategori)
         val tvTanggal: TextView = findViewById(R.id.tv_detail_tanggal)
         val tvIsi: TextView = findViewById(R.id.tv_detail_isi)
 
         if (berita != null) {
             ivGambar.setImageResource(berita.gambar)
             tvJudul.text = berita.judul
+            tvKategori.text = berita.kategori.displayName
             tvTanggal.text = berita.tanggal
             tvIsi.text = berita.deskripsiberita
         }

@@ -22,21 +22,21 @@ class BeritaFragment : Fragment() {
                 judul = "Kisah Shareent, Lolos ke FEB UGM Tanpa Tes",
                 deskripsiberita = "Shareent mencuri perhatian publik setelah berhasil diterima di Fakultas Ekonomika dan Bisnis UGM tanpa mengikuti tes seleksi apa pun. Prestasinya selama di sekolah menengah—mulai dari kejuaraan kompetisi hingga konsistensi akademik—menjadi faktor utama yang membuatnya lolos melalui jalur prestasi. Kisahnya menginspirasi banyak pelajar untuk lebih fokus mengembangkan portofolio dan rekam jejak kompetisi.",
                 tanggal = "Senin, 12 Juni 2025",
-                kategori = BeritaCategory.Umum,
+                kategori = BeritaKategori.Umum,
                 gambar = R.drawable.img_berita_1
             ),
             Berita(
                 judul = "15 PTN Masih Buka Jalur Mandiri 2025",
                 deskripsiberita = "Bagi peserta yang tidak berhasil pada SNBT, masih ada peluang karena setidaknya 15 perguruan tinggi negeri di Indonesia membuka pendaftaran jalur mandiri dengan kuota bervariasi. Beberapa kampus besar seperti UI, UGM, ITS, dan Unair menawarkan jalur dengan mekanisme tes maupun portofolio. Informasi detail mengenai syarat, jadwal, dan sistem seleksi penting diperhatikan karena tiap kampus menerapkan ketentuan berbeda.",
                 tanggal = "Selasa, 13 Juni 2025",
-                kategori = BeritaCategory.Umum,
+                kategori = BeritaKategori.Umum,
                 gambar = R.drawable.img_berita_2
             ),
             Berita(
                 judul = "Seminar Teknologi Informasi",
                 deskripsiberita = "Seminar nasional dengan tema “Inovasi Teknologi untuk Masa Depan Industri” akan diselenggarakan di Aula Utama Kampus. Kegiatan ini menghadirkan pembicara dari berbagai perusahaan teknologi terkemuka yang akan membahas perkembangan AI, keamanan siber, dan otomatisasi industri. Mahasiswa yang mengikuti seminar ini akan mendapatkan sertifikat resmi dan dapat mengajukan SKPI sebagai tambahan portofolio. Kegiatan ini terbuka untuk seluruh mahasiswa, namun tempat terbatas sehingga pendaftaran dilakukan berdasarkan urutan peserta yang mendaftar.",
                 tanggal = "Rabu, 14 Juni 2025",
-                kategori = BeritaCategory.Akademik,
+                kategori = BeritaKategori.Akademik,
                 gambar = R.drawable.img_berita_2
             ),
             Berita(
@@ -45,7 +45,7 @@ class BeritaFragment : Fragment() {
                         "\n" +
                         "Selain itu, perpindahan jadwal ini dilakukan untuk mencegah bentrokan dengan jadwal mata kuliah lain yang sebelumnya dikeluhkan beberapa mahasiswa. Dengan penjadwalan yang baru, diharapkan kegiatan praktikum dapat berjalan lebih efektif dan mahasiswa dapat mengikuti sesi tanpa hambatan. Informasi lengkap mengenai pembagian kelompok akan diumumkan oleh dosen pengampu melalui sistem akademik kampus.",
                 tanggal = "Senin, 18 November 2025",
-                kategori = BeritaCategory.Akademik,
+                kategori = BeritaKategori.Akademik,
                 gambar = R.drawable.img_berita_2
             ),
             Berita(
@@ -54,7 +54,7 @@ class BeritaFragment : Fragment() {
                         "\n" +
                         "Kompetisi ini menjadi peluang besar bagi mahasiswa yang ingin mengembangkan portofolio dan mendapatkan pengalaman nyata dalam dunia desain produk digital. Selain sertifikat, para pemenang juga berkesempatan memperoleh inkubasi proyek dan beasiswa pelatihan lanjutan. Pendaftaran dilakukan melalui laman resmi kampus dan akan ditutup jika kuota peserta terpenuhi.",
                 tanggal = "Selasa, 2 desember 2025",
-                kategori = BeritaCategory.Event,
+                kategori = BeritaKategori.Event,
                 gambar = R.drawable.img_berita_2
             ),
             Berita(
@@ -63,7 +63,7 @@ class BeritaFragment : Fragment() {
                         "\n" +
                         "Selain fitur peminjaman, perpustakaan juga menyediakan ruang baca digital yang memungkinkan mahasiswa mengakses jurnal internasional dan e-book tanpa batas. Dengan adanya layanan ini, mahasiswa tidak perlu lagi datang ke perpustakaan untuk sekadar mengecek ketersediaan buku. Implementasi sistem digital ini merupakan bagian dari komitmen kampus menuju Smart Campus 2025.",
                 tanggal = "Sabtu, 15 November 2025",
-                kategori = BeritaCategory.Akademik,
+                kategori = BeritaKategori.Akademik,
                 gambar = R.drawable.img_berita_2
             )
         )

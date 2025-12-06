@@ -9,9 +9,9 @@ data class Berita(
     val deskripsiberita: String,
     val tanggal: String,
     val gambar: Int,
-    val kategori: BeritaCategory
+    val kategori: BeritaKategori
 ) : Parcelable
-enum class BeritaCategory(val displayName: String){
+enum class BeritaKategori(val displayName: String){
     Akademik("Akademik"),
     Event("Event Kampus"),
     Umum("Informasi Umum")

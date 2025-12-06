@@ -17,7 +17,9 @@ class BeritaAdapter(
         val imgThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
         val tvJudul: TextView = itemView.findViewById(R.id.tv_judul_berita)
         val tvDeskripsiBeritaSingkat: TextView = itemView.findViewById(R.id.tv_deskripsiSingkat)
-        val tvKategori: TextView = itemView.findViewById(R.id.tv_kategori)
+        val tvKategori: TextView = itemView.findViewById(R.id.tv_kategori_berita)
+        val tvTanggal: TextView = itemView.findViewById(R.id.tv_tanggal_berita)
+
         init {
             itemView.setOnClickListener {
                 onItemClick(listBerita[adapterPosition])
@@ -37,7 +39,8 @@ class BeritaAdapter(
         holder.tvJudul.text = berita.judul
         holder.imgThumbnail.setImageResource(berita.gambar)
         holder.tvDeskripsiBeritaSingkat.text = potongDeskripsi(berita.deskripsiberita)
-        holder.tvKategori.text = "${berita.tanggal} ${berita.kategori.displayName}"
+        holder.tvKategori.text = berita.kategori.displayName
+        holder.tvTanggal.text = berita.tanggal
     }
     fun potongDeskripsi(text: String, maxChar: Int = 60): CharSequence {
         return if (text.length > maxChar) {
