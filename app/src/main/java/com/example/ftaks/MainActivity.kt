@@ -55,15 +55,19 @@ class MainActivity : AppCompatActivity() {
             val username = intent.getStringExtra(LoginActivity.KEY_USERNAME) ?: ""
             val password = intent.getStringExtra(LoginActivity.KEY_PASSWORD) ?: ""
 
-            val fragment = ProfilFragment.newInstance(username, password)
-            gantiFragment(fragment)
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("username",username)
+            intent.putExtra("password",password)
+            startActivity(intent)
         }
         tvUsername.setOnClickListener {
             val username = intent.getStringExtra(LoginActivity.KEY_USERNAME) ?: ""
             val password = intent.getStringExtra(LoginActivity.KEY_PASSWORD) ?: ""
 
-            val fragment = ProfilFragment.newInstance(username, password)
-            gantiFragment(fragment)
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("username", username)
+            intent.putExtra("password", password)
+            startActivity(intent)
         }
     }
 
