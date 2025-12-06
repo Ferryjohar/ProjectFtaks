@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.media.Image
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -31,8 +32,8 @@ class MainActivity : AppCompatActivity() {
         val tabTugas: TextView = findViewById(R.id.tab_tugas)
         val tabJadwal: TextView = findViewById(R.id.tab_jadwal)
         val tabBerita: TextView = findViewById(R.id.tab_berita)
-
         val ivAvatar: ImageView = findViewById(R.id.iv_avatar)
+        val btnLogout: ImageView = findViewById(R.id.iv_logout)
 
         gantiFragment(TugasFragment())
         aturWarnaTab(tabTugas, tabJadwal, tabBerita)
@@ -67,6 +68,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("username", username)
             intent.putExtra("password", password)
+            startActivity(intent)
+        }
+        btnLogout.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
     }
