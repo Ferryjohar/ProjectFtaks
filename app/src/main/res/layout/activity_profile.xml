@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -9,113 +10,129 @@
     tools:context=".ProfileActivity">
 
     <View
-        android:id="@+id/view_header_background"
-        android:layout_width="0dp"
-        android:layout_height="184dp"
+        android:id="@+id/view_header"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
         android:background="@color/login_main_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/btn_back"
-        android:layout_width="42dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/btn_back"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Profil Pengguna"
-        android:textColor="@color/white"
+        android:text="Profil Saya"
+        android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivProfile"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="124dp"
-        android:padding="4dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/profil_lg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardData"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
         android:layout_marginHorizontal="24dp"
-        android:padding="24dp"
+        android:layout_marginTop="120dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/ivProfile"
+        app:cardBackgroundColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:gravity="center_horizontal">
 
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/profil_lg"
+                android:layout_marginBottom="24dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:textColor="@color/home_text_secondary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_profile_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Loading..."
+                    android:textColor="@color/login_text_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingTop="4dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0E0E0"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="32dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Password"
+                    android:textColor="@color/home_text_secondary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_profile_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Loading..."
+                    android:textColor="@color/login_text_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingTop="4dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0E0E0"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Keluar"
+                android:background="@drawable/bg_button"
+                android:backgroundTint="#E53935"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
             <TextView
-                android:layout_width="65dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="5dp"
-                android:text="Username"
-                android:textColor="#666"
-                android:textSize="14sp" />
+                android:id="@+id/btn_back_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kembali"
+                android:textColor="@color/home_text_secondary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:padding="8dp"/>
 
-            <EditText
-                android:id="@+id/et_ProfilUsername"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/bg_form_profile"
-                android:enabled="false"
-                android:padding="12dp"
-                android:text="username" />
-
-            <TextView
-                android:layout_width="65dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="16dp"
-                android:text="Password"
-                android:textColor="#666"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/et_ProfilPassword"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/bg_form_profile"
-                android:enabled="false"
-                android:inputType="textPassword"
-                android:padding="12dp"
-                android:text="********" />
-
-            <Button
-                android:id="@+id/btnLogout"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="#D32F2F"
-                android:text="Logout"
-                android:textColor="#FFF" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
