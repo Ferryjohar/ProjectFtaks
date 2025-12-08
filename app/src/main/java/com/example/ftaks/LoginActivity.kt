@@ -1,7 +1,9 @@
 package com.example.ftaks
 
+//PINDAH ACTIVITY
 import android.content.Intent
 import android.os.Bundle
+//KOMPONEN UI
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -34,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
                 intent.putExtra(KEY_USERNAME,username)
                 intent.putExtra(KEY_PASSWORD, password)
                 startActivity(intent)
+
 
             }else{
 

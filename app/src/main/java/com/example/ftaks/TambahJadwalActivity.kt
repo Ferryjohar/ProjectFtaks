@@ -30,6 +30,7 @@ class TambahJadwalActivity : AppCompatActivity() {
             showDatePicker(etHariTanggal)
         }
 
+
         btnSimpan.setOnClickListener {
             val hari = etHariTanggal.text.toString()
             val matkul = etMataKuliah.text.toString()
@@ -42,7 +43,7 @@ class TambahJadwalActivity : AppCompatActivity() {
                 val jadwalBaru = Jadwal(hari, matkul, ruang, waktu)
                 val resultIntent = Intent()
                 resultIntent.putExtra("JADWAL_BARU", jadwalBaru)
-                setResult(Activity.RESULT_OK, resultIntent)
+                setResult(RESULT_OK, resultIntent)
                 finish()
             }
         }

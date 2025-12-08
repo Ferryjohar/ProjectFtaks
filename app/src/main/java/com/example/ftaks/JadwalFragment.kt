@@ -32,6 +32,10 @@ class JadwalFragment : Fragment() {
         }
     }
 
+    fun urutkanJadwal() {
+        DataPenyimpanan.listJadwal.sortBy { it.hariTanggal }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_jadwal, container, false)
     }
@@ -62,9 +66,8 @@ class JadwalFragment : Fragment() {
         }
     }
 
-    fun urutkanJadwal() {
-        DataPenyimpanan.listJadwal.sortBy { it.hariTanggal }
-    }
+
+
 
     fun konfirmasiHapus(position: Int) {
         AlertDialog.Builder(requireContext())
