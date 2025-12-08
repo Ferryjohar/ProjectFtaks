@@ -1,7 +1,7 @@
 package com.example.ftaks
 
 import android.app.Activity
-import android.app.DatePickerDialog // Import ini
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -9,9 +9,9 @@ import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import java.text.SimpleDateFormat // Import untuk format tanggal
-import java.util.Calendar // Import untuk kalender
-import java.util.Locale // Import untuk Bahasa Indonesia
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class TambahTugasActivity : AppCompatActivity() {
 
@@ -23,7 +23,7 @@ class TambahTugasActivity : AppCompatActivity() {
 
         val etMatkul = findViewById<EditText>(R.id.et_matkul_tugas)
         val etDeskripsi = findViewById<EditText>(R.id.et_deskripsi_tugas)
-        val etTanggal = findViewById<EditText>(R.id.et_tanggal_tugas) // EditText Tanggal
+        val etTanggal = findViewById<EditText>(R.id.et_tanggal_tugas)
         val rgPrioritas = findViewById<RadioGroup>(R.id.rg_prioritas)
         val btnSimpan = findViewById<Button>(R.id.btn_simpan_tugas)
 
