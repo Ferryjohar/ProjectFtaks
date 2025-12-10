@@ -9,6 +9,7 @@
     android:background="@color/login_main_background"
     tools:context=".LoginActivity">
 
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -39,7 +39,6 @@ class JadwalAdapter(
 
     override fun onBindViewHolder(holder: JadwalViewHolder, position: Int) {
         val jadwal = listJadwal[position]
-
         holder.tvMatkul.text = jadwal.mataKuliah
         holder.tvWaktu.text = jadwal.waktu
         holder.tvRuang.text = jadwal.ruangKelas
@@ -59,7 +58,7 @@ class JadwalAdapter(
         } else {
             holder.tvHari.visibility = View.VISIBLE
         }
-
+        //kondisi divider line
         if (!isSameDayAsPrev && !isSameDayAsNext) {
             holder.container.background = ContextCompat.getDrawable(context, R.drawable.bg_item_single)
             holder.divider.visibility = View.GONE

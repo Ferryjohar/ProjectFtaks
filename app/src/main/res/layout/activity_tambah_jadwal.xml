@@ -7,6 +7,7 @@
     android:background="@color/jadwal_bg_screen"
     android:padding="24dp"
     android:gravity="center_horizontal">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
